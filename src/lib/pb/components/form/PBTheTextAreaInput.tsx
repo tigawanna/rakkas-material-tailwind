@@ -1,9 +1,19 @@
 import { TheTextAreaInput } from "@/components/form/inputs/TheTextArea";
 import { IUseFormError } from "@/components/form/useForm";
+import {
+  Input,
+  Textarea,
+  TextareaProps,
+  Typography,
+} from "@material-tailwind/react";
 import { ClientResponseError } from "pocketbase";
+import { useState, useEffect } from "react";
+import { getPBFliedError } from "../../utils/helpers";
+import { twMerge } from "tailwind-merge";
 
-interface PbTheTextAreaInputProps<T>
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+type MTTextareaProps = Omit<TextareaProps, "ref">;
+
+interface PbTheTextAreaInputProps<T> extends MTTextareaProps {
   field_name: React.ReactNode;
   field_key: keyof T;
   error_message?: string;
@@ -13,12 +23,8 @@ interface PbTheTextAreaInputProps<T>
   output_classname?: string;
   editing?: boolean;
   description?: string;
-  error?: IUseFormError | null;
+  validation_error?: IUseFormError | null;
   pb_error?: ClientResponseError | null;
-}
-interface FieldError {
-  message: string;
-  code: string;
 }
 
 export function PbTheTextAreaInput<T>({
@@ -27,26 +33,92 @@ export function PbTheTextAreaInput<T>({
   editing = true,
   error,
   pb_error,
+  validation_error,
+  className,
   ...props
 }: PbTheTextAreaInputProps<T>) {
-  const validatin_field_error =
-    error?.name === field_key ? error.message : undefined;
-  const error_data = pb_error?.data?.data;
-  const pb_field_error = error_data?.[field_key] as FieldError | undefined;
-  // console.log(" =========== VALIDATEd FIELD ERROR =========== ",validatin_field_error)
-  // console.log(" =========== PB FIELD ERROR =========== ",pb_field_error?.message)
-  // console.log("pb_error ====== ",error?.data?.data)
-  // console.log(" field key ====== ",field_key)
-  // console.log(" field error ====== ",field_error)
+  const field_error = getPBFliedError({
+    field_key,
+    pb_error,
+    validation_error,
+  });
+  const [error_message, setError] = useState(field_error);
+  useEffect(() => {
+    if (props.error_message) {
+      setError((prev) => {
+        if (prev !== props.error_message) {
+          return props.error_message;
+        }
+        return prev;
+      });
+    }
+  }, [props.error_message]);
+  // console.log("the text input error message ",error_message)
+  // console.log("the text input props error message", props.error_message);
+
+
+  function handlePossiblyDateOrUrl(item: typeof props.value) {
+    if (item instanceof Date) {
+      return item.toISOString();
+    }
+    if (item instanceof URL) {
+      return item.href;
+    }
+    return item;
+  }
+  const value = handlePossiblyDateOrUrl(props.value);
+
   return (
-    <div className="w-full flex flex-col gap-1">
-      <TheTextAreaInput
-        {...props}
-        field_key={field_key}
-        field_name={field_name}
-        editing={editing}
-        error_message={validatin_field_error ?? pb_field_error?.message}
-      />
+    <div
+      key={field_key as string}
+      className={twMerge(
+        "flex w-full flex-col justify-center gap-1",
+        props.container_classname,
+      )}
+    >
+      {editing ? (
+        <div className="flex w-full flex-col">
+          <Textarea
+            {...props}
+            value={value}
+            onKeyDown={(e) => {
+              setError(undefined);
+            }}
+            id={field_key as string}
+            name={field_key as string}
+            title={props.placeholder}
+     
+          />
+          {props.description && editing && (
+            <Typography
+              variant="small"
+              className={twMerge(
+                "text-xs italic text-info mt-2 flex items-center gap-1 f",
+                props.description_classname,
+              )}
+            >
+              {props.description}
+            </Typography>
+          )}
+        </div>
+      ) : (
+        <div
+          className={twMerge(
+            "w-full border-b px-0.5 py-1 text-sm",
+            props.output_classname,
+          )}
+        >
+          {value}
+        </div>
+      )}
+      {error_message && (
+        <Typography
+          variant="small"
+          className="italic text-error"
+        >
+          {error_message}
+        </Typography>
+      )}
     </div>
   );
 }
