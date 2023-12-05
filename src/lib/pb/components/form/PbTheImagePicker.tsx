@@ -4,7 +4,7 @@ import { Schema } from "../../db-types";
 import { ImagePlus } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 
-interface PbTheImagePickerProps {
+interface PBTheImagePickerProps {
   show_preview?: boolean;
   label?: React.ReactNode;
   label_classname?: string;
@@ -14,7 +14,7 @@ interface PbTheImagePickerProps {
   setFileImage?: (file: File | null) => void;
 }
 
-export function PbTheImagePicker({
+export function PBTheImagePicker({
   label,
   label_classname,
   show_preview = true,
@@ -22,7 +22,7 @@ export function PbTheImagePicker({
   record_id,
   file_name,
   setFileImage,
-}: PbTheImagePickerProps) {
+}: PBTheImagePickerProps) {
   const img_url = getFileURL({ collection_id_or_name, record_id, file_name });
   const [pic, setPic] = useState(img_url);
   //  const [input_pic, setInputPic] = useState<File | null>(null);

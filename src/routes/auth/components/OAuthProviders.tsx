@@ -1,5 +1,6 @@
 import { oneClickOauthLogin } from "@/lib/pb/client";
 import { tryCatchWrapper } from "@/utils/helpers/async";
+import { Button } from "@material-tailwind/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { GithubIcon, Loader } from "lucide-react";
 import { navigate } from "rakkasjs";
@@ -28,16 +29,21 @@ export function OAuthproviders({}: OAuthprovidersProps) {
   });
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center gap-5">
-      <div className="w-full h-full flex  items-center justify-center gap-2">
-        Login with
-        <button className="btn btn-sm btn-outline">
+    <div className="w-full h-full flex flex-col items-center justify-center gap-5 ">
+      <div className="w-full h-full flex flex-col items-center justify-center gap-2">
+ 
+        <Button
+        size="sm"
+          variant="gradient"
+          className="flex gap-3 justify-center items-center bg-accent/10 min-w-[30%]"
+        >
           <GithubIcon
-            className="w-6 h-6"
+            // className="w-6 h-6"
             onClick={() => mutation.mutate("github")}
-          />
+            />
+            Github 
           {mutation.isPending && <Loader className="animate-spin" />}
-        </button>
+        </Button>
         {/* </Link> */}
       </div>
     </div>

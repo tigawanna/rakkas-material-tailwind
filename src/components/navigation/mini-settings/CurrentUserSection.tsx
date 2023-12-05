@@ -1,13 +1,7 @@
-import { artificialDelay } from "@/utils/helpers/async";
 import { Link, useLocation } from "rakkasjs";
-import { Button } from "@/components/shadcn/ui/button";
 import { Loader, LogOut } from "lucide-react";
 import { useUser } from "@/lib/rakkas/hooks/useUser";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/shadcn/ui/avatar";
+import { Avatar, Button } from "@material-tailwind/react";
 
 interface CurrentUserSectionProps {
   setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -25,15 +19,17 @@ export function CurrentUserSection({ setOpen }: CurrentUserSectionProps) {
 
   if (!user) {
     return (
-      <div className="w-full h-full flex items-center justify-center">
+      <div className="w-full h-full flex items-center justify-center p-5">
         {location.current.pathname !== "/auth" && (
-          <Link
-            href="/auth"
-            className="w-[80%] btn btn-sm btn-outline text-xs hover:text-blue-600 mx-1 my-2"
-            onClick={() => setOpen?.(false)}
-          >
-            Login
-          </Link>
+          <Button className="hover:scale-x-110" variant="gradient">
+            <Link
+              href="/auth"
+              className="w-[80%]   "
+              onClick={() => setOpen?.(false)}
+            >
+              Login
+            </Link>
+          </Button>
         )}
       </div>
     );
@@ -41,10 +37,12 @@ export function CurrentUserSection({ setOpen }: CurrentUserSectionProps) {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
       <div className="w-full h-full flex flex-col items-center justify-start p-3 gap-2">
-        <Avatar className="h-28 w-28">
-          <AvatarImage src={user?.avatar} alt="@user" className="rounded-lg" />
-          <AvatarFallback>{user?.username?.slice(0, 2)}</AvatarFallback>
-        </Avatar>
+        <Avatar
+          className="h-8 w-8"
+          src={user?.avatar}
+          alt={user?.username?.slice(0, 2)}
+        />
+
         <div className="flex flex-col justify-center items-center space-y-1">
           <p className="text-sm font-medium leading-none">{user?.username}</p>
           <p className="text-xs leading-none text-muted-foreground">
@@ -56,8 +54,8 @@ export function CurrentUserSection({ setOpen }: CurrentUserSectionProps) {
       <span className="w-full flex items-center justify-center">
         <Button
           onClick={() => logoutUser()}
-          variant={"ghost"}
-          className="w-[80%] btn btn-sm btn-outline btn-error text-xs"
+          variant={"outlined"}
+          className="w-[80%]"
           size={"sm"}
           disabled={user_mutation.isLoading}
         >

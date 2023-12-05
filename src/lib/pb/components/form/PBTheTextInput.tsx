@@ -7,8 +7,8 @@ import { getPBFieldError } from "../../utils/helpers";
 
 type MTInputProps = Omit<InputProps, "ref">;
 
-interface PbTheTextInputProps<T> extends MTInputProps {
-  field_name: React.ReactNode;
+interface PBTheTextInputProps<T> extends MTInputProps {
+  field_name: string;
   field_key: keyof T;
   error_message?: string;
   container_classname?: string;
@@ -22,7 +22,7 @@ interface PbTheTextInputProps<T> extends MTInputProps {
   pb_error?: ClientResponseError | null;
 }
 
-export function PbTheTextInput<T>({
+export function PBTheTextInput<T>({
   field_name,
   field_key,
   editing = true,
@@ -30,7 +30,7 @@ export function PbTheTextInput<T>({
   className,
   pb_error,
   ...props
-}: PbTheTextInputProps<T>) {
+}: PBTheTextInputProps<T>) {
   const field_error = getPBFieldError({
     field_key,
     pb_error,
@@ -76,19 +76,20 @@ export function PbTheTextInput<T>({
             crossOrigin={""}
             {...props}
             value={value}
+            
             onKeyDown={(e) => {
               setError(undefined);
             }}
             id={field_key as string}
             name={field_key as string}
-            title={props.placeholder}
+            label={field_name}
             // className={twMerge(default_input_tw, className)}
           />
           {props.description && editing && (
             <Typography
               variant="small"
               className={twMerge(
-                "text-xs italic text-info mt-2 flex items-center gap-1 f",
+                "italic text-info mt-2 flex items-center gap-1 f",
                 props.description_classname,
               )}
             >

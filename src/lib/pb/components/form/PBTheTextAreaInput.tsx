@@ -12,8 +12,8 @@ import { getPBFieldError } from "../../utils/helpers";
 
 type MTTextareaProps = Omit<TextareaProps, "ref">;
 
-interface PbTheTextAreaInputProps<T> extends MTTextareaProps {
-  field_name: React.ReactNode;
+interface PBTheTextAreaInputProps<T> extends MTTextareaProps {
+  field_name: string;
   field_key: keyof T;
   error_message?: string;
   container_classname?: string;
@@ -26,7 +26,7 @@ interface PbTheTextAreaInputProps<T> extends MTTextareaProps {
   pb_error?: ClientResponseError | null;
 }
 
-export function PbTheTextAreaInput<T>({
+export function PBTheTextAreaInput<T>({
   field_name,
   field_key,
   editing = true,
@@ -35,7 +35,7 @@ export function PbTheTextAreaInput<T>({
   validation_error,
   className,
   ...props
-}: PbTheTextAreaInputProps<T>) {
+}: PBTheTextAreaInputProps<T>) {
   const field_error = getPBFieldError({
     field_key,
     pb_error,
@@ -85,7 +85,7 @@ export function PbTheTextAreaInput<T>({
             }}
             id={field_key as string}
             name={field_key as string}
-            title={props.placeholder}
+            label={field_name}
      
           />
           {props.description && editing && (

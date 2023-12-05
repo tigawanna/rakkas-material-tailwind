@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { getPBFieldError } from "../../utils/helpers";
 
 
-interface PBCheckboxProps<T> extends Omit<CheckboxProps, "ref"> {
+interface PBTheCheckboxProps<T> extends Omit<CheckboxProps, "ref"> {
   field_name: string;
   field_key: keyof T;
   error_message?: string;
@@ -13,7 +13,7 @@ interface PBCheckboxProps<T> extends Omit<CheckboxProps, "ref"> {
   pb_error?: ClientResponseError | null;
 }
 
-export function PBCheckbox<T>({field_key,field_name,validation_error,pb_error,...props}:PBCheckboxProps<T>){
+export function PBTheCheckbox<T>({field_key,field_name,validation_error,pb_error,...props}:PBTheCheckboxProps<T>){
     const field_error = getPBFieldError({
       field_key,
       pb_error,
@@ -35,13 +35,13 @@ return (
     <Checkbox
       crossOrigin={""}
       {...props}
-      label={props.label}
+      label={field_name}
       id={field_key as string}
     />
     {error_message && (
       <Typography
         variant="small"
-        className={"text-xs italic text-error text-xs italic text-error"}
+        className={"italic text-error"}
       >
         {error_message}
       </Typography>

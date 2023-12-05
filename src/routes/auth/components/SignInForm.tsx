@@ -1,7 +1,6 @@
 import { Link, navigate, usePageContext } from "rakkasjs";
 import { OAuthproviders } from "./OAuthProviders";
-import { Button } from "@/components/shadcn/ui/button";
-import { TheTextInput } from "@/components/form/inputs/TheTextInput";
+
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { emailPasswordLogin } from "@/lib/pb/client";
 import { toast } from "react-toastify";
@@ -9,6 +8,10 @@ import { useFormHook } from "@/components/form/useForm";
 import { useState } from "react";
 import { Loader, Unlock } from "lucide-react";
 import { tryCatchWrapper } from "@/utils/helpers/async";
+
+import { Button, Typography } from "@material-tailwind/react";
+import { PBTheCheckbox } from "@/lib/pb/components/form/PBCheckbox";
+import { PBTheTextInput } from "@/lib/pb/components/form/PBTheTextInput";
 
 interface SignInFormProps {}
 
@@ -84,89 +87,80 @@ export function SignInForm({}: SignInFormProps) {
     mutation.mutate(input);
   }
   return (
-    <div className="w-full min-h-screen h-full flex flex-col items-center justify-center p-5 gap-5">
-      <div className="w-full h-full md:w-[60%] lg:w-[40%] flex flex-col gap-4">
-        {show_form && (
-          <form
-            className="w-full h-full  flex flex-col items-center justify-center gap-4"
-            // method="POST"
-            onSubmit={handleSubmit}
+    <div className="w-full min-h-screen h-full flex flex-col items-center justify-evenly p-5 gap-1">
+      <div className="w-full h-full md:w-[60%] lg:w-[40%] flex flex-col items-center ">
+        <h1 className="text-3xl font-bold">Sign In</h1>
+        <form
+          className="w-full h-full   min-h-[40vh]  flex flex-col items-center justify-center gap-4  p-3 "
+          // method="POST"
+          onSubmit={handleSubmit}
+        >
+          <PBTheTextInput
+            field_key={"usernameOrEmail"}
+            field_name="usernameOrEmail"
+            onChange={handleChange}
+            labelProps={{}}
+            required
+            val={input.usernameOrEmail}
+          />
+
+          <PBTheTextInput
+            field_key={"password"}
+            field_name="password"
+            type={show ? "text" : "password"}
+            required
+            min={8}
+            onChange={handleChange}
+            val={input.password}
+          />
+          <PBTheCheckbox
+            field_key={"show"}
+            field_name={"show password"}
+            onChange={(e) => setShow(e.target.checked)}
+          />
+          <Button
+            type="submit"
+            disabled={mutation.isPending}
+            className="btn btn-sm btn-outline min-w-[50%]"
+            variant="gradient"
+            size={"sm"}
           >
-            <h1 className="text-2xl font-bold">Sign In</h1>
-
-            <TheTextInput
-              field_key={"usernameOrEmail"}
-              field_name="usernameOrEmail"
-              onChange={handleChange}
-              required
-              val={input.usernameOrEmail}
-            />
-
-            <TheTextInput
-              field_key={"password"}
-              field_name="password"
-              type={show ? "text" : "password"}
-              required
-              min={8}
-              onChange={handleChange}
-              val={input.password}
-            />
-            <TheTextInput
-              field_key={"show"}
-              field_name={"show password"}
-              onChange={(e) => setShow(e.target.checked)}
-              type="checkbox"
-              className="h-5 border-none w-5"
-              container_classname="border-none flex flex-row gap-3"
-              label_classname="min-w-fit "
-            />
-            <Button
-              type="submit"
-              disabled={mutation.isPending}
-              className="btn btn-sm btn-outline min-w-[50%]"
-              variant={"ghost"}
-              size={"sm"}
-            >
-              {" "}
-              Sign in{" "}
-              {mutation.isPending && <Loader className="animate-spin" />}
-            </Button>
-          </form>
-        )}
-        {show_form && (
-          <div className="w-full flex items-center justify-center">
-            <span className="w-full border-t" />
-            <span className="bg-background px-2 text-muted-foreground min-w-fit">
-              Or continue with
-            </span>
-            <span className="w-full border-t" />
-          </div>
-        )}
-        <OAuthproviders />
+            {" "}
+            Sign in {mutation.isPending && <Loader className="animate-spin" />}
+          </Button>
+        </form>
       </div>
-      {show_form && (
-        <div className="flex flex-col gap-2">
-          <p className=" text-sm">
-            New here ? Create an account ?{" "}
-            <Link href="/auth/signup" className="text-accent">
-              Sign up
-            </Link>
-          </p>
-          <button
-            className="btn btn-outline btn-sm flex text-xs gap-2 h-2 "
+      <div className="w-full  md:w-[60%] lg:w-[40%] flex flex-col items-center justify-evenly gap-5">
+        <div className="w-full flex items-center justify-center">
+          <span className="w-full border-t" />
+          <span className="bg-background px-2 text-muted-foreground min-w-fit">
+            Or continue with
+          </span>
+          <span className="w-full border-t" />
+        </div>
+
+        <OAuthproviders />
+        <div className="h-full flex flex-wrap  items-center text-sm gap-3">
+          <Link href="/auth/signup" className="text-accent ">
+            Sign up instead
+          </Link>
+          |
+          <Button
+            variant="text"
+            className="flex gap-2 m-0 p-0 justify-center items-center text-accent lowercase"
             disabled={pw_reset_request_mutation.isPending}
             onClick={() =>
               pw_reset_request_mutation.mutate({ email: input.usernameOrEmail })
             }
           >
-            <h3>Forgot password</h3>
+            Forgot Password
             <Unlock className="h-4 w-4 text-red-600" />
             {pw_reset_request_mutation.isPending && (
               <Loader className="animate-spin" />
             )}
-          </button>
+          </Button>
         </div>
-      )}
+      </div>
     </div>
   );
 }
