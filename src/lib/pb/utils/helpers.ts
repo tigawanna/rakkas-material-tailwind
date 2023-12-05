@@ -10,7 +10,7 @@ interface FieldError {
     message: string;
     code: string;
 }
-export function getPBFliedError<T>({field_key,pb_error,validation_error}: GetPBFliedError<T>) {
+export function getPBFieldError<T>({field_key,pb_error,validation_error}: GetPBFliedError<T>) {
     const validation_field_error = validation_error?.name === field_key ? validation_error?.message : undefined;
     const error_data = pb_error?.data?.data;
     const pb_field_error = error_data?.[field_key] as FieldError | undefined;

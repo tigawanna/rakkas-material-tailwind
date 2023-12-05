@@ -1,4 +1,3 @@
-import { TheTextAreaInput } from "@/components/form/inputs/TheTextArea";
 import { IUseFormError } from "@/components/form/useForm";
 import {
   Input,
@@ -8,8 +7,8 @@ import {
 } from "@material-tailwind/react";
 import { ClientResponseError } from "pocketbase";
 import { useState, useEffect } from "react";
-import { getPBFliedError } from "../../utils/helpers";
 import { twMerge } from "tailwind-merge";
+import { getPBFieldError } from "../../utils/helpers";
 
 type MTTextareaProps = Omit<TextareaProps, "ref">;
 
@@ -37,7 +36,7 @@ export function PbTheTextAreaInput<T>({
   className,
   ...props
 }: PbTheTextAreaInputProps<T>) {
-  const field_error = getPBFliedError({
+  const field_error = getPBFieldError({
     field_key,
     pb_error,
     validation_error,

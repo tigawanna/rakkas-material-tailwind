@@ -1,9 +1,9 @@
 import { IUseFormError } from "@/components/form/useForm";
 import { ClientResponseError } from "pocketbase";
-import { getPBFliedError } from "../../utils/helpers";
 import { useState, useEffect } from "react";
 import { twMerge } from "tailwind-merge";
 import { Input, InputProps, Typography } from "@material-tailwind/react";
+import { getPBFieldError } from "../../utils/helpers";
 
 type MTInputProps = Omit<InputProps, "ref">;
 
@@ -31,7 +31,7 @@ export function PbTheTextInput<T>({
   pb_error,
   ...props
 }: PbTheTextInputProps<T>) {
-  const field_error = getPBFliedError({
+  const field_error = getPBFieldError({
     field_key,
     pb_error,
     validation_error,

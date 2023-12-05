@@ -2,7 +2,8 @@ import { IUseFormError } from "@/components/form/useForm";
 import { Checkbox, CheckboxProps, Typography } from "@material-tailwind/react";
 import { ClientResponseError } from "pocketbase";
 import { useState, useEffect } from "react";
-import { getPBFliedError } from "../../utils/helpers";
+import { getPBFieldError } from "../../utils/helpers";
+
 
 interface PBCheckboxProps<T> extends Omit<CheckboxProps, "ref"> {
   field_name: string;
@@ -13,7 +14,7 @@ interface PBCheckboxProps<T> extends Omit<CheckboxProps, "ref"> {
 }
 
 export function PBCheckbox<T>({field_key,field_name,validation_error,pb_error,...props}:PBCheckboxProps<T>){
-    const field_error = getPBFliedError({
+    const field_error = getPBFieldError({
       field_key,
       pb_error,
       validation_error,

@@ -2,7 +2,6 @@ import { useRef, useState } from "react";
 import { getFileURL } from "../../client";
 import { Schema } from "../../db-types";
 import { ImagePlus } from "lucide-react";
-import { Label } from "@/components/shadcn/ui/label";
 import { twMerge } from "tailwind-merge";
 
 interface PbTheImagePickerProps {
