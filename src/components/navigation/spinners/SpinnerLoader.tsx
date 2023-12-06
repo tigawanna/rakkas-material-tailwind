@@ -1,4 +1,3 @@
-import { Loader } from "lucide-react";
 import { cn } from "../../shadcn/lib/utils";
 import { Spinner } from "./Spinner";
 

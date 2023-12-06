@@ -1,5 +1,4 @@
 import { dateToString } from "@/utils/helpers/others";
-import { Typography } from "@material-tailwind/react";
 
 interface PbTimesProps {
   label?: React.ReactNode;
@@ -11,12 +10,7 @@ export function PBTimeStamp({ timestamp, label }: PbTimesProps) {
     <div className=" flex items-center justify-between  text-sm gap-2">
       {label && label}
 
-      <Typography
-        variant="small"
-        className={""}
-      >
-        {dateToString(timestamp)}
-      </Typography>
+      <span className={"text-sm"}>{dateToString(timestamp)}</span>
 
       <h3></h3>
     </div>

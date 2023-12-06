@@ -8,19 +8,10 @@ export default function Page({}:PageProps) {
         href: "/dashboard",
         icon: <LayoutDashboard className="w-8 h-8" />,
       },
+
       {
-        name: "Bills",
-        href: "/dashboard/bills",
-        icon: <Receipt className="w-8 h-8" />,
-      },
-      {
-        name: "Shops",
-        href: "/dashboard/shops",
-        icon: <Store className="w-8 h-8" />,
-      },
-      {
-        name: "Tenants",
-        href: "/dashboard/tenants",
+        name: "Users",
+        href: "/dashboard/users",
         icon: <Users2Icon className="w-8 h-8" />,
       },
     ];
