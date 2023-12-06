@@ -42,8 +42,8 @@ export function TheTextInput<T>({
   // console.log("the text input error message ",error_message)
   // console.log("the text input props error message", props.error_message);
   const default_input_tw = error_message
-    ? " input  input-sm w-full border-error border-2"
-    : "input  input-sm w-full border-accent";
+    ? " input  input-sm w-full border-error border-2 "
+    : "input  input-sm w-full border-accent ";
 
   function handlePossiblyDateOrUrl(item: typeof props.val) {
     if (item instanceof Date) {
@@ -59,18 +59,18 @@ export function TheTextInput<T>({
     <div
       key={field_key as string}
       className={twMerge(
-        "flex w-full flex-col justify-center gap-1",
+        "flex w-full flex-col justify-center gap-1 ",
         props.container_classname,
       )}
     >
       <Label
         htmlFor={field_key as string}
-        className={twMerge("font-serif text-sm", props.label_classname)}
+        className={twMerge("font-serif font-semibold ", props.label_classname)}
       >
         {field_name as string}
       </Label>
       {editing ? (
-        <div className="flex w-full flex-col">
+        <div className="flex flex-col ">
           <Input
             {...props}
             value={value}

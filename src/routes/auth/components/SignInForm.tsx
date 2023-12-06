@@ -94,31 +94,33 @@ export function SignInForm({}: SignInFormProps) {
           >
             <h1 className="text-2xl font-bold">Sign In</h1>
 
-     <PBTheTextInput
+            <PBTheTextInput
               field_key={"usernameOrEmail"}
               field_name="usernameOrEmail"
+              label_classname="min-w-fit text-sm text-accent capitalize"
               onChange={handleChange}
               required
               val={input.usernameOrEmail}
             />
 
-     <PBTheTextInput
+            <PBTheTextInput
               field_key={"password"}
               field_name="password"
               type={show ? "text" : "password"}
+              label_classname="min-w-fit text-sm text-accent capitalize"
               required
               min={8}
               onChange={handleChange}
               val={input.password}
             />
-     <PBTheTextInput
+            <PBTheTextInput
               field_key={"show"}
               field_name={"show password"}
               onChange={(e) => setShow(e.target.checked)}
               type="checkbox"
-              className="h-5 border-none w-5"
-              container_classname="border-none flex flex-row gap-3"
-              label_classname="min-w-fit "
+              className="checkbox"
+              container_classname="border-none flex flex-row-reverse gap-3 items-center justify-end "
+              label_classname="min-w-fit text-sm"
             />
             <Button
               type="submit"

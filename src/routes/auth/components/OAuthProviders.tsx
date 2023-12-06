@@ -29,13 +29,15 @@ export function OAuthproviders({}: OAuthprovidersProps) {
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center gap-5">
-      <div className="w-full h-full flex  items-center justify-center gap-2">
-        Login with
-        <button className="btn btn-sm btn-outline">
+      <div className="w-full h-full flex flex-col items-center justify-center gap-2">
+
+        <button className="btn btn-wide btn-outline text-lg">
+ 
           <GithubIcon
-            className="w-6 h-6"
+            className=""
             onClick={() => mutation.mutate("github")}
           />
+          Github
           {mutation.isPending && <Loader className="animate-spin" />}
         </button>
         {/* </Link> */}

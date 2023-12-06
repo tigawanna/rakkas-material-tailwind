@@ -88,21 +88,25 @@ export function SignUpForm({}: SignupFormProps) {
             <PBTheTextInput
               field_key={"email"}
               field_name="Email"
+              type="email"
               required
               val={input.email}
               onChange={handleChange}
               validation_error={error}
               pb_error={mutation.data?.error}
+              label_classname="min-w-fit text-sm text-accent capitalize"
             />
             <PBTheTextInput
               field_key={"username"}
               field_name="Useranme"
+              type="text"
               required
               min={4}
               val={input.username}
               onChange={handleChange}
               validation_error={error}
               pb_error={mutation.data?.error}
+              label_classname="min-w-fit text-sm text-accent capitalize"
             />
             <PBTheTextInput
               field_key={"password"}
@@ -114,6 +118,7 @@ export function SignUpForm({}: SignupFormProps) {
               val={input.password}
               validation_error={error}
               pb_error={mutation.data?.error}
+              label_classname="min-w-fit text-sm text-accent capitalize"
             />
             <PBTheTextInput
               field_key={"passwordConfirm"}
@@ -125,23 +130,23 @@ export function SignUpForm({}: SignupFormProps) {
               val={input.passwordConfirm}
               validation_error={error}
               pb_error={mutation.data?.error}
+              label_classname="min-w-fit text-sm text-accent capitalize"
             />
 
-            <TheTextInput
+            <PBTheTextInput
               field_key={"show"}
               field_name={"show password"}
               onChange={(e) => setShow(e.target.checked)}
               type="checkbox"
-              className="h-5 border-none w-5"
-              container_classname="border-none flex flex-row gap-3"
-              label_classname="min-w-fit "
+              className="checkbox"
+              container_classname="border-none flex flex-row-reverse gap-3 items-center justify-end "
+              label_classname="min-w-fit text-sm"
             />
 
             <Button
               type="submit"
               disabled={mutation.isPending}
               className="btn btn-sm btn-outline min-w-[50%]"
-        
             >
               {" "}
               Sign Up{" "}
