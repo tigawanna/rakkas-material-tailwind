@@ -110,8 +110,7 @@ export function PasswordResetForm({}: PasswordResetFormProps) {
               type="submit"
               disabled={pw_reset_request_mutation.isPending}
               className="btn btn-sm btn-outline min-w-[50%]"
-              variant={"ghost"}
-              size={"sm"}
+          
             >
               {" "}
               Submit{" "}
@@ -170,8 +169,7 @@ export function PasswordResetForm({}: PasswordResetFormProps) {
               type="submit"
               disabled={pw_reset_confirm_mutation.isPending}
               className="btn btn-sm btn-outline min-w-[50%]"
-              variant={"ghost"}
-              size={"sm"}
+    
             >
               {" "}
               Submit{" "}

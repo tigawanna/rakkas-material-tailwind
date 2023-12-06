@@ -2,16 +2,22 @@ import { Button } from "@/components/shadcn/ui/button";
 import { OAuthproviders } from "./OAuthProviders";
 import { Link, navigate, usePageContext } from "rakkasjs";
 import { TheTextInput } from "@/components/form/inputs/TheTextInput";
-import { TSignupformSchema } from "./auth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useFormHook } from "@/components/form/useForm";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { tryCatchWrapper } from "@/utils/helpers/async";
 import { Loader } from "lucide-react";
-import { PbTheTextInput } from "@/lib/pb/components/form/PBTheTextInput";
+import { PBTheTextInput } from "@/lib/pb/components/form/PBTheTextInput";
+
 
 interface SignupFormProps {}
+type TSignupformSchema = {
+  email:string;
+  username:string;
+  password:string;
+  passwordConfirm:string;
+};
 
 export function SignUpForm({}: SignupFormProps) {
   const show_form = true;
@@ -79,7 +85,7 @@ export function SignUpForm({}: SignupFormProps) {
             onSubmit={handleSubmit}
           >
             <h1 className="text-2xl font-bold">Sign Up</h1>
-            <PbTheTextInput
+            <PBTheTextInput
               field_key={"email"}
               field_name="Email"
               required
@@ -88,7 +94,7 @@ export function SignUpForm({}: SignupFormProps) {
               validation_error={error}
               pb_error={mutation.data?.error}
             />
-            <PbTheTextInput
+            <PBTheTextInput
               field_key={"username"}
               field_name="Useranme"
               required
@@ -98,7 +104,7 @@ export function SignUpForm({}: SignupFormProps) {
               validation_error={error}
               pb_error={mutation.data?.error}
             />
-            <PbTheTextInput
+            <PBTheTextInput
               field_key={"password"}
               field_name="password"
               type={show ? "text" : "password"}
@@ -109,7 +115,7 @@ export function SignUpForm({}: SignupFormProps) {
               validation_error={error}
               pb_error={mutation.data?.error}
             />
-            <PbTheTextInput
+            <PBTheTextInput
               field_key={"passwordConfirm"}
               field_name="passwordConfirm"
               type={show ? "text" : "password"}
@@ -135,8 +141,7 @@ export function SignUpForm({}: SignupFormProps) {
               type="submit"
               disabled={mutation.isPending}
               className="btn btn-sm btn-outline min-w-[50%]"
-              variant={"ghost"}
-              size={"sm"}
+        
             >
               {" "}
               Sign Up{" "}

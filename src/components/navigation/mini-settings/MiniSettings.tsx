@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { Avatar, Button } from "@material-tailwind/react";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/shadcn/ui/avatar";
+import { Button } from "@/components/shadcn/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,17 +24,33 @@ export function MiniSettingsModal({}: MiniSettingsModalProps) {
   return (
     <DropdownMenu modal open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
-        <Avatar
-          className="h-8 w-8"
-          src={user?.avatar}
-          alt={user?.username?.slice(0, 2)}
-        />
+        <Button  className="relative h-7 w-7 rounded-full">
+          <Avatar className="h-8 w-8">
+            <AvatarImage src={user?.avatar} alt="@shadcn" />
+            <AvatarFallback>{user?.username?.slice(0, 2)}</AvatarFallback>
+          </Avatar>
+        </Button>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="w-56 " align="end" forceMount>
         <DropdownMenuSeparator />
 
+        {/* <DropdownMenuGroup>
+          <DropdownMenuItem>
+            Profile
+            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+          </DropdownMenuItem>
 
+          <DropdownMenuItem>
+            Settings
+            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+          </DropdownMenuItem>
+
+          <DropdownMenuItem>
+            Settings
+            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+          </DropdownMenuItem>
+        </DropdownMenuGroup> */}
 
         <DropdownMenuSeparator />
         {/* theme toggle */}

@@ -1,18 +1,15 @@
 import { IUseFormError } from "@/components/form/useForm";
-import {
-  Input,
-  Textarea,
-  TextareaProps,
-  Typography,
-} from "@material-tailwind/react";
 import { ClientResponseError } from "pocketbase";
 import { useState, useEffect } from "react";
 import { twMerge } from "tailwind-merge";
 import { getPBFieldError } from "../../utils/helpers";
+import { Textarea } from "@/components/shadcn/ui/textarea";
+import { TheTextAreaInput } from "@/components/form/inputs/TheTextArea";
 
-type MTTextareaProps = Omit<TextareaProps, "ref">;
 
-interface PBTheTextAreaInputProps<T> extends MTTextareaProps {
+
+interface PBTheTextAreaInputProps<T>
+  extends React.InputHTMLAttributes<HTMLTextAreaElement> {
   field_name: string;
   field_key: keyof T;
   error_message?: string;
@@ -30,9 +27,8 @@ export function PBTheTextAreaInput<T>({
   field_name,
   field_key,
   editing = true,
-  error,
-  pb_error,
   validation_error,
+  pb_error,
   className,
   ...props
 }: PBTheTextAreaInputProps<T>) {
@@ -55,7 +51,9 @@ export function PBTheTextAreaInput<T>({
   // console.log("the text input error message ",error_message)
   // console.log("the text input props error message", props.error_message);
 
-
+  const default_textarea_tw = error_message
+    ? " border-error border-2"
+    : " border border-accent";
   function handlePossiblyDateOrUrl(item: typeof props.value) {
     if (item instanceof Date) {
       return item.toISOString();
@@ -75,29 +73,36 @@ export function PBTheTextAreaInput<T>({
         props.container_classname,
       )}
     >
-      {editing ? (
+      <TheTextAreaInput
+        {...props}
+        className={className}
+        field_key={field_key}
+        field_name={field_name}
+        editing={editing}
+        error_message={error_message}
+      />
+      {/* {editing ? (
         <div className="flex w-full flex-col">
           <Textarea
-            {...props}
-            value={value}
             onKeyDown={(e) => {
               setError(undefined);
             }}
+            {...props}
             id={field_key as string}
             name={field_key as string}
-            label={field_name}
-     
+            title={props.placeholder}
+            className={twMerge(default_textarea_tw,className)}
           />
           {props.description && editing && (
-            <Typography
-              variant="small"
+            <span
+   
               className={twMerge(
                 "text-xs italic text-info mt-2 flex items-center gap-1 f",
                 props.description_classname,
               )}
             >
               {props.description}
-            </Typography>
+            </span>
           )}
         </div>
       ) : (
@@ -111,13 +116,11 @@ export function PBTheTextAreaInput<T>({
         </div>
       )}
       {error_message && (
-        <Typography
-          variant="small"
-          className="italic text-error"
-        >
-          {error_message}
-        </Typography>
-      )}
+        <span
+         className="italic text-error"
+        >{error_message}
+        </span>
+      )} */}
     </div>
   );
 }

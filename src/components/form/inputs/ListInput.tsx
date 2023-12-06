@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Plus, X } from "lucide-react";
-import { Input, InputProps, Typography } from "@material-tailwind/react";
+import { TheTextInput } from "./TheTextInput";
 
-type MTInputProps = Omit<InputProps, "ref">;
-interface TheListInputProps<T> extends MTInputProps {
+interface TheListInputProps<T>
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   field_name: string;
   field_key: keyof T;
   input: T;
@@ -75,7 +75,7 @@ export function TheListInput<T>({
       </div>
       {editing && (
         <div className="flex w-fit gap-1">
-          {/* <TheTextInput
+          <TheTextInput
             {...props}
             field_key={field_key}
             field_name={field_name}
@@ -84,25 +84,7 @@ export function TheListInput<T>({
             onChange={handleChange}
             placeholder="Add an item "
             description="you can add multiple items comma separated"
-          /> */}
-          <div>
-            <Input
-              crossOrigin={""}
-              {...props}
-              value={item}
-              id={field_key as string}
-              name={field_key as string}
-              title={props.placeholder}
-              onChange={handleChange}
-              placeholder="Add an item "
-            />
-            <Typography
-              variant="small"
-              className="mt-2 flex items-center gap-1 font-normal"
-            >
-              you can add multiple items comma separated
-            </Typography>
-          </div>
+          />
           <Plus
             onClick={() => handleAddItem(item)}
             className="h-8 w-8 border hover:text-accent"

@@ -1,5 +1,5 @@
 {
-  "name": "rakkas-material-tailwind",
+  "name": "rakkas-shadcn-daisyui",
   "type": "module",
   "private": true,
   "scripts": {
@@ -13,7 +13,7 @@
     "test:format": "prettier --check --ignore-unknown src",
     "test:lint": "eslint . --ignore-pattern dist",
     "test:unit": "vitest run",
-    "dasify":"npx daisify shadcn"
+    "dasify": "npx daisify shadcn"
   },
   "devDependencies": {
     "@rakkasjs/eslint-config": "0.7.0-next.23",
@@ -39,12 +39,21 @@
   "dependencies": {
     "@hattip/cookie": "^0.0.35",
     "@hattip/response": "^0.0.35",
-    "@material-tailwind/react": "^2.1.5",
+    "@radix-ui/react-alert-dialog": "^1.0.5",
+    "@radix-ui/react-avatar": "^1.0.4",
+    "@radix-ui/react-checkbox": "^1.0.4",
+    "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-dropdown-menu": "^2.0.6",
+    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-popover": "^1.0.7",
+    "@radix-ui/react-scroll-area": "^1.0.5",
+    "@radix-ui/react-select": "^2.0.0",
+    "@radix-ui/react-separator": "^1.0.3",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-tooltip": "^1.0.7",
     "@tanem/react-nprogress": "^5.0.51",
     "@tanstack/react-query": "^5.8.4",
-      "@radix-ui/react-select": "^2.0.0",
-
+    "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "devalue": "^4.3.2",
     "lucide-react": "^0.292.0",
