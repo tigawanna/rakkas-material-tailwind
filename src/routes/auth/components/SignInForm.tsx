@@ -1,6 +1,5 @@
 import { Link, navigate, usePageContext } from "rakkasjs";
 import { OAuthproviders } from "./OAuthProviders";
-
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { emailPasswordLogin } from "@/lib/pb/client";
 import { toast } from "react-toastify";
@@ -8,7 +7,6 @@ import { useFormHook } from "@/components/form/useForm";
 import { useState } from "react";
 import { Loader, Unlock } from "lucide-react";
 import { tryCatchWrapper } from "@/utils/helpers/async";
-
 import { Button, Typography } from "@material-tailwind/react";
 import { PBTheCheckbox } from "@/lib/pb/components/form/PBCheckbox";
 import { PBTheTextInput } from "@/lib/pb/components/form/PBTheTextInput";
